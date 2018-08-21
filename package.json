@@ -2,7 +2,7 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "lint": "eslint --fix",
+    "lint": "eslint . --fix",
     "prepush": "npm run lint",
     "commitmsg": "commitlint -E GIT_PARAMS",
     "precommit": "lint-staged"
