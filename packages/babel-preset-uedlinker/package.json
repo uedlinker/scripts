@@ -1,0 +1,31 @@
+{
+  "name": "@uedlinker/babel-preset-uedlinker",
+  "version": "0.3.0",
+  "description": "Babel preset for @uedlinker/scripts",
+  "keywords": [
+    "preset",
+    "babel",
+    "scripts",
+    "uedlinker"
+  ],
+  "author": "Uedlinker",
+  "homepage": "https://github.com/uedlinker/scripts#readme",
+  "license": "MIT",
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/uedlinker/scripts.git"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "bugs": {
+    "url": "https://github.com/uedlinker/scripts/issues"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "name": "@uedlinker/scripts",
+  "version": "0.3.0",
+  "description": "Scripts for React single page application",
+  "keywords": [
+    "scripts",
+    "react",
+    "SPA"
+  ],
+  "author": "Uedlinker",
+  "homepage": "https://github.com/uedlinker/scripts#readme",
+  "license": "MIT",
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/uedlinker/scripts.git"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "bugs": {
+    "url": "https://github.com/uedlinker/scripts/issues"
+  }
+}
