@@ -12,9 +12,6 @@
   "homepage": "https://github.com/uedlinker/scripts#readme",
   "license": "MIT",
   "main": "index.js",
-  "files": [
-    "index.js"
-  ],
   "publishConfig": {
     "access": "public"
   },
