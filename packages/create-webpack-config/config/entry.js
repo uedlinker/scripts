@@ -4,8 +4,8 @@ module.exports = (config, options, envs) => {
   // Add `@babel/polyfill` and `whatwg-fetch` polyfills.
   config
     .entry('main')
-    .add('@babel/polyfill')
-    .add('whatwg-fetch')
+    .add(require.resolve('@babel/polyfill'))
+    .add(require.resolve('whatwg-fetch'))
 
   // If user configs polyfillsPath, add polyfillsPath to entry.
   if (typeof polyfillsPath === 'string') {

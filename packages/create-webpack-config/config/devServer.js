@@ -11,7 +11,6 @@ module.exports = (config, options, envs) => {
       .compress(true)
       .historyApiFallback(true)
       .host('0.0.0.0')
-      .hot(true)
       .noInfo(true)
       .open(true)
       .openPage('')

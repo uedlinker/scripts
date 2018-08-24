@@ -10,7 +10,7 @@ module.exports = (options = {}) => {
 
   ;[
     require('./config/context'),
-    require('./devServer'),
+    require('./config/devServer'),
     require('./config/devtool'),
     require('./config/entry'),
     require('./config/mode'),

@@ -25,6 +25,7 @@ describe('@uedlinker/create-webpack-config', () => {
         enableProductionAnalysis: false,
         enableTypescript: false,
         enableSass: true,
+        babelConfig: expect.any(Object),
       }))
       expect(defaults).not.toMatchObject(expect.objectContaining({
         polyfillsPath: expect.anything(),

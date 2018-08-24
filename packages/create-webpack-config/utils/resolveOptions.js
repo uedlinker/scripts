@@ -39,6 +39,13 @@ module.exports = (options = {}) => {
     enableTypescript = false,
     // Whether support Sass files, default true.
     enableSass = true,
+    // Babel configuration
+    babelConfig = {
+      presets: [[
+        require.resolve('@uedlinker/babel-preset-uedlinker'),
+        { stage: 3, enableFlow: false, enableTypescript: false },
+      ]],
+    },
   } = options
 
   // Resolve all relative paths to absolute paths based on the `appPath`
@@ -62,5 +69,6 @@ module.exports = (options = {}) => {
     enableProductionAnalysis,
     enableTypescript,
     enableSass,
+    babelConfig,
   }
 }

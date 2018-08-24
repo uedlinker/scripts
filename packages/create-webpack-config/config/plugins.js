@@ -28,52 +28,50 @@ module.exports = (config, options, envs) => {
   // Define custom envs.
   config
     .plugin('define')
-    .use(webpack.DefinePlugin, customEnvs)
+    .use(webpack.DefinePlugin, [customEnvs])
 
   // Webpack Bar
   config
     .plugin('bar')
-    .use(WebpackBar, {
-      profile: isProduction,
-    })
+    .use(WebpackBar)
 
   // Plugins in poroduction env.
   if (isProduction) {
     config
 
       .plugin('clean')
-      .use(CleanWebpackPlugin, [outputPath])
+      .use(CleanWebpackPlugin, [[outputPath]])
       .end()
 
     if (fs.existsSync(staticPath) && fs.statSync(staticPath).isDirectory()) {
       config
         .plugin('copy')
-        .use(CopyWebpackPlugin, [{
+        .use(CopyWebpackPlugin, [[{
           from: staticPath,
-        }])
+        }]])
         .end()
     }
 
     config
       .plugin('mini-css-extract')
-      .use(MiniCssExtractPlugin, {
+      .use(MiniCssExtractPlugin, [{
         filename: isDevelopment
           ? 'assets/css/[name].css'
           : 'assets/css/[name].[chunkhash].css',
         chunkFilename: isDevelopment
           ? 'assets/css/[name].css'
           : 'assets/css/[name].[chunkhash].css',
-      })
+      }])
       .end()
 
       .plugin('optimize-css-assets')
-      .use(OptimizeCSSAssetsPlugin, {
+      .use(OptimizeCSSAssetsPlugin, [{
         cssProcessorOptions: {
           map: enableProductionSourceMap && {
             inline: false,
           },
         },
-      })
+      }])
 
     if (enableProductionAnalysis) {
       config
@@ -84,7 +82,7 @@ module.exports = (config, options, envs) => {
 
   config
     .plugin('html')
-    .use(HtmlWebpackPlugin, {
+    .use(HtmlWebpackPlugin, [{
       template: templatePath,
       minify: isProduction && {
         collapseWhitespace: true,
@@ -93,7 +91,7 @@ module.exports = (config, options, envs) => {
         minifyJS: true,
         removeComments: true,
       },
-    })
+    }])
 
   return config
 }

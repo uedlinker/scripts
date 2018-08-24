@@ -3,7 +3,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = (config, options, envs) => {
   const { isDevelopment } = envs
-  const { appPath, srcPath, enableTypescript, enableSass } = options
+  const { appPath, srcPath, enableTypescript, enableSass, babelConfig } = options
 
   // Disable `require.ensure`, use standard dynamic import.
   config
@@ -26,20 +26,20 @@ module.exports = (config, options, envs) => {
     .end()
 
     .use('thread-loader')
-    .loader('thread-loader')
+    .loader(require.resolve('thread-loader'))
     .options(isDevelopment ? {
       poolTimeout: Infinity,
     } : void 0)
     .end()
 
     .use('babel-loader')
-    .loader('babel-loader')
+    .loader(require.resolve('babel-loader'))
     .options({
       babelrc: false,
-      root: appPath,
       cwd: appPath,
-      presets: [['@uedlinker/uedlinker', options]],
+      root: appPath,
       cacheDirectory: true,
+      ...babelConfig,
     })
 
   // CSS rule.
@@ -78,18 +78,22 @@ function configStyleRule (config, type, isDevelopment) {
     .test(testRe)
 
     .use('style-loader')
-    .loader(isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader)
+    .loader(
+      isDevelopment
+        ? require.resolve('style-loader')
+        : MiniCssExtractPlugin.loader
+    )
     .end()
 
     .use('css-loader')
-    .loader('css-loader')
+    .loader(require.resolve('css-loader'))
     .options({
       importLoaders: importLoaders,
     })
     .end()
 
     .use('postcss-loader')
-    .loader('postcss-loader')
+    .loader(require.resolve('postcss-loader'))
     .options({
       ident: 'postcss',
       plugins: [
@@ -104,7 +108,7 @@ function configStyleRule (config, type, isDevelopment) {
   if (type === 'sass') {
     base
       .use('sass-loader')
-      .loader('sass-loader')
+      .loader(require.resolve('sass-loader'))
   }
 
   return config
@@ -128,14 +132,14 @@ function configFilesRule (config, type, isDevelopment) {
     .oneOf('inline')
     .resourceQuery(/inline/)
     .use('url-loader')
-    .loader('url-loader')
+    .loader(require.resolve('url-loader'))
     .end()
     .end()
 
     .oneOf('external')
     .resourceQuery(/external/)
     .use('file-loader')
-    .loader('file-loader')
+    .loader(require.resolve('file-loader'))
     .options({
       name: isDevelopment
         ? `assets/${type}/[name].[ext]`
@@ -146,7 +150,7 @@ function configFilesRule (config, type, isDevelopment) {
 
     .oneOf('default')
     .use('url-loader')
-    .loader('url-loader')
+    .loader(require.resolve('url-loader'))
     .options({
       limit: 4096,
       name: isDevelopment
