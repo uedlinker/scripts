@@ -5,6 +5,7 @@ const commander = require('commander')
 const packageJSON = require('../package')
 const dev = require('../libs/dev')
 const build = require('../libs/build')
+const test = require('../libs/test')
 
 commander
   .version(packageJSON.version)
@@ -17,8 +18,13 @@ commander
 
 commander
   .command('build')
-  .description('run production script')
+  .description('run build script')
   .action(build)
+
+commander
+  .command('test')
+  .description('run test script')
+  .action(test)
 
 commander
   .parse(process.argv)

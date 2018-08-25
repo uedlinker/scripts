@@ -9,7 +9,7 @@ module.exports = (options = {}) => {
   const { appPath = defaultAppPath } = options
 
   // `appPath` must be an absolute path.
-  if (!path.isAbsolute(appPath)) {
+  if (typeof appPath !== 'string' || !path.isAbsolute(appPath)) {
     throw new Error('The `appPath` must be an absolute path.')
   }
 
