@@ -49,11 +49,9 @@
     ]
   },
   "jest": {
-    "projects": [
-      "<rootDir>/packages/babel-preset-uedlinker",
-      "<rootDir>/packages/create-webpack-config",
-      "<rootDir>/packages/scripts"
-    ],
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "testPathIgnorePatterns": [
+      "<rootDir>/packages/scripts/libs/test.js"
+    ]
   }
 }
