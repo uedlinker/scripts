@@ -47,5 +47,13 @@
     "*.js": [
       "eslint --fix"
     ]
+  },
+  "jest": {
+    "projects": [
+      "<rootDir>/packages/babel-preset-uedlinker",
+      "<rootDir>/packages/create-webpack-config",
+      "<rootDir>/packages/scripts"
+    ],
+    "testEnvironment": "node"
   }
 }
