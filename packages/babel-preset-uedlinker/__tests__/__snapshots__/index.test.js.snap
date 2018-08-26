@@ -322,13 +322,13 @@ exports[`@uedlinker/babel-preset-uedlinker stages 3`] = `"a || (a = b);"`;
 exports[`@uedlinker/babel-preset-uedlinker stages 4`] = `
 "var _obj, _obj$foo, _obj$foo$bar;
 
-var baz = (_obj = obj) == null ? void 0 : (_obj$foo = _obj.foo) == null ? void 0 : (_obj$foo$bar = _obj$foo.bar) == null ? void 0 : _obj$foo$bar.baz();"
+var baz = (_obj = obj) === null || _obj === void 0 ? void 0 : (_obj$foo = _obj.foo) === null || _obj$foo === void 0 ? void 0 : (_obj$foo$bar = _obj$foo.bar) === null || _obj$foo$bar === void 0 ? void 0 : _obj$foo$bar.baz();"
 `;
 
 exports[`@uedlinker/babel-preset-uedlinker stages 5`] = `
 "var _object$foo;
 
-var foo = (_object$foo = object.foo) != null ? _object$foo : \\"default\\";"
+var foo = (_object$foo = object.foo) !== null && _object$foo !== void 0 ? _object$foo : \\"default\\";"
 `;
 
 exports[`@uedlinker/babel-preset-uedlinker stages 6`] = `"var a = x > 10 ? 'big' : 'small';"`;
@@ -499,13 +499,13 @@ exports[`@uedlinker/babel-preset-uedlinker stages 19`] = `"a || (a = b);"`;
 exports[`@uedlinker/babel-preset-uedlinker stages 20`] = `
 "var _obj, _obj$foo, _obj$foo$bar;
 
-var baz = (_obj = obj) == null ? void 0 : (_obj$foo = _obj.foo) == null ? void 0 : (_obj$foo$bar = _obj$foo.bar) == null ? void 0 : _obj$foo$bar.baz();"
+var baz = (_obj = obj) === null || _obj === void 0 ? void 0 : (_obj$foo = _obj.foo) === null || _obj$foo === void 0 ? void 0 : (_obj$foo$bar = _obj$foo.bar) === null || _obj$foo$bar === void 0 ? void 0 : _obj$foo$bar.baz();"
 `;
 
 exports[`@uedlinker/babel-preset-uedlinker stages 21`] = `
 "var _object$foo;
 
-var foo = (_object$foo = object.foo) != null ? _object$foo : \\"default\\";"
+var foo = (_object$foo = object.foo) !== null && _object$foo !== void 0 ? _object$foo : \\"default\\";"
 `;
 
 exports[`@uedlinker/babel-preset-uedlinker stages 22`] = `"var a = x > 10 ? 'big' : 'small';"`;
