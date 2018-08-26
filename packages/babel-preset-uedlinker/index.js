@@ -2,7 +2,6 @@ module.exports = (context, options = {}) => {
   const presets = []
   const plugins = []
 
-  // Detect babel runtime env.
   const env = context.env() || process.env.BABEL_ENV || process.env.NODE_ENV
   const isDevelopment = env === 'development'
   const isProduction = env === 'production'
@@ -12,7 +11,7 @@ module.exports = (context, options = {}) => {
     throw new Error(
       'Must specify `BABEL_ENV` or `NODE_ENV` environment variables when ' +
       'using `@uedlinker/babel-preset-uedlinker`. Accept "development", ' +
-      `"production" or "test" values, instead of ${JSON.stringify(env)}.`
+      `"production" and "test" values, instead of ${JSON.stringify(env)}.`
     )
   }
 
@@ -37,7 +36,6 @@ module.exports = (context, options = {}) => {
     }
   }
 
-  // Use `@babel/preset-env`.
   presets.push([
     require('@babel/preset-env'),
     (
@@ -47,9 +45,9 @@ module.exports = (context, options = {}) => {
       } : {
         // When testing or building UI libs, should transform ES6 modules to
         // commonjs that Node.js is using. When using other module system like Webpack,
-        // There is no need to transform modules to commonjs, they will handle by theirself.
+        // there is no need to transform modules to commonjs, modules will be handled by theirself.
         modules: false,
-        // Transform `import '@babel/polyfill'` to individual polyfills based on environment.
+        // Transform `import '@babel/polyfill'` to individual polyfills based on browserslist.
         // You need to install and import `@babel/polyfill` by yourself.
         useBuiltIns: 'entry',
         ...options['@babel/preset-env'],
@@ -57,26 +55,23 @@ module.exports = (context, options = {}) => {
     ),
   ])
 
-  // Use `@babel/preset-react`.
   presets.push([
     require('@babel/preset-react'),
     {
       // Will use the native built-in instead of polyfills.
-      // `@babel/preset-env` will create polyfills.
+      // The `@babel/preset-env` will create polyfills.
       useBuiltIns: true,
       development: isDevelopment || isTest,
       ...options['@babel/preset-react'],
     },
   ])
 
-  // Use `@babel/preset-flow` if `enableFlow` is truthy.
   if (enableFlow) {
     presets.push([
       require('@babel/preset-flow'),
     ])
   }
 
-  // Use `@babel/preset-typescript` if `enableTypescript` is truthy.
   if (enableTypescript) {
     presets.push([
       require('@babel/preset-typescript'),
@@ -91,14 +86,14 @@ module.exports = (context, options = {}) => {
   // If syntax in stages is enabled.
   if (stage != null && stage !== 'none') {
 
-    // Support ES syntax in stage 0 if stage === 0.
+    // Stage 0
     if (stage === 0) {
       plugins.push([
         require('@babel/plugin-proposal-function-bind'),
       ])
     }
 
-    // Support ES syntax in stage 1 if stage <= 1.
+    // Stage 1
     if (stage <= 1) {
       plugins.push([
         require('@babel/plugin-proposal-export-default-from'),
@@ -107,7 +102,7 @@ module.exports = (context, options = {}) => {
       ], [
         require('@babel/plugin-proposal-optional-chaining'),
         {
-          loose: true,
+          loose: false,
           ...options['@babel/plugin-proposal-optional-chaining'],
         },
       ], [
@@ -119,7 +114,7 @@ module.exports = (context, options = {}) => {
       ], [
         require('@babel/plugin-proposal-nullish-coalescing-operator'),
         {
-          loose: true,
+          loose: false,
           ...options['@babel/plugin-proposal-nullish-coalescing-operator'],
         },
       ], [
@@ -127,7 +122,7 @@ module.exports = (context, options = {}) => {
       ])
     }
 
-    // Support ES syntax in stage 2 if stage <= 2.
+    // Stage 2
     if (stage <= 2) {
       plugins.push([
         require('@babel/plugin-proposal-decorators'),
@@ -146,7 +141,7 @@ module.exports = (context, options = {}) => {
       ])
     }
 
-    // Support ES syntax in stage 3 if stage <= 3.
+    // Stage 3
     if (stage <= 3) {
       plugins.push([
         require('@babel/plugin-syntax-dynamic-import'),
@@ -164,7 +159,6 @@ module.exports = (context, options = {}) => {
     }
   }
 
-  // Use `@babel/plugin-transform-runtime`.
   plugins.push([
     require('@babel/plugin-transform-runtime'),
     {
@@ -174,7 +168,7 @@ module.exports = (context, options = {}) => {
       regenerator: true,
       // Set this to true when using other module systems like Webpack.
       // Otherwise set this to false.
-      useESModules: true,
+      useESModules: !isTest,
       ...options['@babel/plugin-transform-runtime'],
     },
   ])

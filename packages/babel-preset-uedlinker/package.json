@@ -48,9 +48,13 @@
     "babel-plugin-transform-react-remove-prop-types": "^0.4.14"
   },
   "peerDependencies": {
-    "@babel/core": "^7.0.0-0"
+    "@babel/core": "^7.0.0-0",
+    "@babel/polyfill": "^7.0.0-0",
+    "@babel/runtime": "^7.0.0-0"
   },
   "devDependencies": {
-    "@babel/core": "^7.0.0-rc.2"
+    "@babel/core": "^7.0.0-rc.2",
+    "@babel/polyfill": "^7.0.0-rc.3",
+    "@babel/runtime": "^7.0.0-rc.3"
   }
 }

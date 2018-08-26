@@ -20,11 +20,11 @@ describe('@uedlinker/babel-preset-uedlinker', () => {
   test('stages', () => {
     process.env.BABEL_ENV = 'development'
     const codes = [
-      // Stage 0 syntax.
+      // Stage 0
       [
         `obj::func`,
       ],
-      // Stage 1 syntax.
+      // Stage 1
       [
         `export v from 'mod';`,
         `a ||= b;`,
@@ -40,7 +40,7 @@ describe('@uedlinker/babel-preset-uedlinker', () => {
           };
         `,
       ],
-      // Stage 2 syntax.
+      // Stage 2
       [
         `
           @annotation
@@ -60,7 +60,7 @@ describe('@uedlinker/babel-preset-uedlinker', () => {
           }
         `,
       ],
-      // Stage 3 syntax
+      // Stage 3
       [
         `import('./test.js')`,
         `
