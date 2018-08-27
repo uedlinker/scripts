@@ -4,7 +4,6 @@
   "scripts": {
     "test": "jest",
     "lint": "eslint . --fix",
-    "prepush": "npm run test",
     "commitmsg": "commitlint -E GIT_PARAMS",
     "precommit": "lint-staged"
   },
