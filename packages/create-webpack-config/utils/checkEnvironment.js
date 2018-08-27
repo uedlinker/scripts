@@ -8,7 +8,7 @@ module.exports = () => {
   if (!isProduction && !isDevelopment) {
     throw new Error(
       'Valid values of `NODE_ENV` environment variable are ' +
-    `"development" and "production", not ${JSON.stringify(env)}.`
+      `"development" and "production", not ${JSON.stringify(env)}.`
     )
   }
 

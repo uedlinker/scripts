@@ -1,21 +1,20 @@
 module.exports = (config, options, envs) => {
   const { srcPath, enableTypescript } = options
 
-  // Take srcPath precedence over `node_modules`.
-  // Files and directories under the srcPath have their own alias.
   config
     .resolve
     .modules
-    .add(srcPath)
     .add('node_modules')
+    .add(srcPath)
+    // Finally, resolve modules based on current file path,
+    // in this way, users do not need to install dependencies by themselves.
+    .merge(module.paths)
 
-  // Resolve extensions.
   config
     .resolve
     .extensions
     .merge(['.js', '.jsx', '.json'])
 
-  // If enable TypeScript.
   if (enableTypescript) {
     config
       .resolve

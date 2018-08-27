@@ -1,120 +1,135 @@
+const fs = require('fs')
 const path = require('path')
 const { defaults } = require('jest-config')
+const uedlinkerConfig = require('@uedlinker/load-config/config/uedlinker')
 
-module.exports = (options = {}) => {
-  const defaultAppPath = process.cwd()
-  const { appPath = defaultAppPath } = options
-
-  if (typeof appPath !== 'string' || !path.isAbsolute(appPath)) {
-    throw new Error(
-      `Option \`appPath\` must be an absolute path. You provide ${appPath}.`
-    )
-  }
+module.exports = (options = uedlinkerConfig) => {
 
   let {
-    enableTypescript = false,
+    rootPath = fs.realpathSync(process.cwd()),
     srcPath = 'src',
     outputPath = 'dist',
     staticPath = 'static',
+    enableTypescript = false,
   } = options
 
+  // `rootPath` must be an absolute path.
+  if (typeof rootPath !== 'string' || !path.isAbsolute(rootPath)) {
+    throw new Error(
+      `Option \`rootPath\` must be an absolute path. You provide ${JSON.stringify(rootPath)}.`
+    )
+  }
+
+  // Validate paths.
   if (typeof srcPath !== 'string') {
     throw new Error(
-      `Option \`srcPath\` must be a string path. You provide ${srcPath}`
+      `Option \`srcPath\` must be a string path. You provide ${JSON.stringify(srcPath)}`
     )
   }
   if (typeof outputPath !== 'string') {
     throw new Error(
-      `Option \`outputPath\` must be a string path. You provide ${outputPath}`
+      `Option \`outputPath\` must be a string path. You provide ${JSON.stringify(outputPath)}`
     )
   }
   if (typeof staticPath !== 'string') {
     throw new Error(
-      `Option \`staticPath\` must be a string path. You provide ${staticPath}`
+      `Option \`staticPath\` must be a string path. You provide ${JSON.stringify(staticPath)}`
     )
   }
 
+  // Resolve all absolute paths to relative paths.
   if (path.isAbsolute(srcPath)) {
-    srcPath = path.relative(appPath, srcPath)
+    srcPath = path.relative(rootPath, srcPath)
   }
   if (path.isAbsolute(outputPath)) {
-    outputPath = path.relative(appPath, outputPath)
+    outputPath = path.relative(rootPath, outputPath)
   }
   if (path.isAbsolute(staticPath)) {
-    staticPath = path.relative(appPath, staticPath)
+    staticPath = path.relative(rootPath, staticPath)
   }
 
+  // Jest `rootDir` config
+  const rootDir = rootPath
+
+  // Jest `collectCoverageFrom` config
   const collectCoverageFrom = [
-    (srcPath ? `${srcPath}/**/*.{js,jsx}` : '**/*.{js,jsx}'),
-    '!**/node_modules/**',
+    '!**/e2e/**',
+    '!**/test/**',
+    '!**/tests/**',
     '!**/__mocks__/**',
     '!**/__tests__/**',
-    '!**/e2e/**',
-    '!**/tests/**',
-    '!**/test/**',
+    '!**/node_modules/**',
+    `${srcPath}/**/*.{js,jsx}`,
   ]
 
+  if (outputPath) collectCoverageFrom.push(`!${outputPath}/**`)
+  if (staticPath) collectCoverageFrom.push(`!${staticPath}/**`)
+  if (enableTypescript) collectCoverageFrom.push(`${srcPath}/**/*.{ts,tsx}`)
+
+  // Jest `coverageDirectory` config
+  const coverageDirectory = 'coverage'
+
+  // Jest `coveragePathIgnorePatterns` config
   const coveragePathIgnorePatterns = [
-    '/node_modules/',
+    '/e2e/',
+    '/test/',
+    '/tests/',
     '/__mocks__/',
     '/__tests__/',
-    '/e2e/',
-    '/tests/',
-    '/test/',
+    '/node_modules/',
   ]
 
+  if (outputPath) coveragePathIgnorePatterns.push(`<rootDir>/${outputPath}/`)
+  if (staticPath) coveragePathIgnorePatterns.push(`<rootDir>/${staticPath}/`)
+
+  // Jest `moduleFileExtensions` config
   const moduleFileExtensions = [...defaults.moduleFileExtensions]
+  if (enableTypescript) moduleFileExtensions.push('ts', 'tsx')
 
-  const modulePaths = [
-    path.resolve(appPath, srcPath),
-  ]
+  // Jest `modulePaths` config
+  const modulePaths = [ path.resolve(rootPath, srcPath) ].concat(module.paths)
 
+  // Jest `setupFiles` config
   const setupFiles = [
     require.resolve('whatwg-fetch'),
     path.resolve(__dirname, './setup.js'),
   ]
 
+  // Jest `testMatch` config
   const testMatch = [...defaults.testMatch]
 
-  const transform = {
-    '^.+\\.jsx?$': path.resolve(__dirname, './transformBabel.js'),
-  }
-
-  if (outputPath) {
-    collectCoverageFrom.push(`!${outputPath}/**`)
-    coveragePathIgnorePatterns.push(`<rootDir>/${outputPath}/`)
-  }
-
-  if (staticPath) {
-    collectCoverageFrom.push(`!${staticPath}/**`)
-    coveragePathIgnorePatterns.push(`<rootDir>/${staticPath}/`)
-  }
-
   if (enableTypescript) {
-    collectCoverageFrom.push(
-      (srcPath ? `${srcPath}/**/*.{ts,tsx}` : '**/*.{ts,tsx}')
-    )
-    moduleFileExtensions.push('ts', 'tsx')
     testMatch.push(
       '**/__tests__/**/*.ts?(x)',
       '**/?(*.)+(spec|test).ts?(x)'
     )
-    transform['^.+\\.tsx?$'] = path.resolve(__dirname, './transformBabel.js')
-    transform['^(?!.*\\.(js|jsx|ts|tsx|json)$)'] = path.resolve(__dirname, './transformOtherFile.js')
-  } else {
-    transform['^(?!.*\\.(js|jsx|json)$)'] = path.resolve(__dirname, './transformOtherFile.js')
   }
 
+  // Jest `transform` config
+  const transform = {
+    '^.+\\.jsx?$': path.resolve(__dirname, './transform/babel.js'),
+  }
+
+  if (enableTypescript) {
+    transform['^.+\\.tsx?$'] = path.resolve(__dirname, './transform/babel.js')
+    transform['^(?!.*\\.(js|jsx|ts|tsx|json)$)'] = path.resolve(__dirname, './transform/other.js')
+  } else {
+    transform['^(?!.*\\.(js|jsx|json)$)'] = path.resolve(__dirname, './transform/other.js')
+  }
+
+  // Jest `verbose` config
+  const verbose = true
+
   return {
-    rootDir: appPath,
+    rootDir,
     collectCoverageFrom,
-    coverageDirectory: 'coverage',
+    coverageDirectory,
     coveragePathIgnorePatterns,
     moduleFileExtensions,
     modulePaths,
     setupFiles,
     testMatch,
     transform,
-    verbose: true,
+    verbose,
   }
 }

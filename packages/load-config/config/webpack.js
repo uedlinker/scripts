@@ -1,18 +1,19 @@
 const fs = require('fs')
 const path = require('path')
 const merge = require('webpack-merge')
-const { isPlainObject, isFunction } = require('lodash')
+const isFunction = require('lodash.isfunction')
+const isPlainObject = require('lodash.isplainobject')
 const createWebpackConfig = require('@uedlinker/create-webpack-config')
 
 const babelConfig = require('./babel')
 const uedlinkerConfig = require('./uedlinker')
 
-uedlinkerConfig.babelConfig = babelConfig
+const options = Object.freeze({ ...uedlinkerConfig, babelConfig })
 
-const chain = createWebpackConfig(uedlinkerConfig)
+const chain = createWebpackConfig(options)
 const config = chain.toConfig()
 
-const cwd = process.cwd()
+const cwd = fs.realpathSync(process.cwd())
 const filename = path.resolve(cwd, './webpack.config.js')
 
 if (fs.existsSync(filename)) {

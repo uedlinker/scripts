@@ -4,42 +4,32 @@ const absolutePath = require('./absolutePath')
 
 module.exports = (options = {}) => {
 
-  // Use current working directory as the default app path.
-  const defaultAppPath = fs.realpathSync(process.cwd())
-  const { appPath = defaultAppPath } = options
+  // Use current working directory as the default root path.
+  const defaultRootPath = fs.realpathSync(process.cwd())
+  const { rootPath = defaultRootPath } = options
 
-  // `appPath` must be an absolute path.
-  if (typeof appPath !== 'string' || !path.isAbsolute(appPath)) {
-    throw new Error('The `appPath` must be an absolute path.')
+  // `rootPath` must be an absolute path.
+  if (typeof rootPath !== 'string' || !path.isAbsolute(rootPath)) {
+    throw new Error(
+      `Option \`rootPath\` must be an absolute path. You provide ${JSON.stringify(rootPath)}.`
+    )
   }
 
   let {
-    // Directory of source files, default is `src` directory under the appPath.
-    srcPath = './src',
-    // Entry file, default is the index file under the srcPath.
-    entryPath = './src/index',
-    // Output path, default is `dist` directory under the appPath.
-    outputPath = './dist',
-    // Static directory, default is `static` directory under the appPath.
-    // All files in this directory will be copied to the outputPath.
-    staticPath = './static',
-    // HTML template path
+    srcPath = 'src',
+    entryPath = 'src/index',
+    outputPath = 'dist',
+    staticPath = 'static',
     templatePath = path.resolve(__dirname, '../template.html'),
-    // User's polyfills path.
     polyfillsPath,
-    // `publicPath` in production environment.
-    // Default value is '/' in both production and development envs.
-    // Can't change development's `publicPath` through options.
-    productionPublicPath = '/',
-    // Whether enable production source map, default false.
-    enableProductionSourceMap = false,
-    // Whether enable production analysis, default false,
-    enableProductionAnalysis = false,
-    // Whether support TypeScript syntax, default false.
-    enableTypescript = false,
-    // Whether support Sass files, default true.
+
     enableSass = true,
-    // Babel configuration
+    enableTypescript = false,
+
+    productionPublicPath = '/',
+    enableProductionAnalysis = false,
+    enableProductionSourceMap = false,
+
     babelConfig = {
       presets: [[
         require.resolve('@uedlinker/babel-preset-uedlinker'),
@@ -48,27 +38,30 @@ module.exports = (options = {}) => {
     },
   } = options
 
-  // Resolve all relative paths to absolute paths based on the `appPath`
-  srcPath = absolutePath(appPath, srcPath)
-  entryPath = absolutePath(appPath, entryPath)
-  outputPath = absolutePath(appPath, outputPath)
-  staticPath = absolutePath(appPath, staticPath)
-  templatePath = absolutePath(appPath, templatePath)
-  polyfillsPath = absolutePath(appPath, polyfillsPath)
+  // Resolve all relative paths to absolute paths based on the `rootPath`
+  srcPath = absolutePath(rootPath, srcPath)
+  entryPath = absolutePath(rootPath, entryPath)
+  outputPath = absolutePath(rootPath, outputPath)
+  staticPath = absolutePath(rootPath, staticPath)
+  templatePath = absolutePath(rootPath, templatePath)
+  polyfillsPath = absolutePath(rootPath, polyfillsPath)
 
   return {
-    appPath,
+    rootPath,
     srcPath,
     entryPath,
     outputPath,
     staticPath,
     templatePath,
     polyfillsPath,
-    productionPublicPath,
-    enableProductionSourceMap,
-    enableProductionAnalysis,
-    enableTypescript,
+
     enableSass,
+    enableTypescript,
+
+    productionPublicPath,
+    enableProductionAnalysis,
+    enableProductionSourceMap,
+
     babelConfig,
   }
 }

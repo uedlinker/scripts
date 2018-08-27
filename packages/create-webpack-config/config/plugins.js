@@ -11,7 +11,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 module.exports = (config, options, envs) => {
   const { isProduction, isDevelopment } = envs
   const {
-    outputPath, staticPath, templatePath,
+    rootPath, outputPath, staticPath, templatePath,
     enableProductionSourceMap, enableProductionAnalysis,
   } = options
 
@@ -40,7 +40,9 @@ module.exports = (config, options, envs) => {
     config
 
       .plugin('clean')
-      .use(CleanWebpackPlugin, [[outputPath]])
+      .use(CleanWebpackPlugin, [[outputPath], {
+        root: rootPath,
+      }])
       .end()
 
     if (fs.existsSync(staticPath) && fs.statSync(staticPath).isDirectory()) {

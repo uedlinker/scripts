@@ -4,14 +4,14 @@ module.exports = (basePath, relativePath) => {
   if (typeof basePath !== 'string') {
     throw new TypeError(
       `The first param must be a string when use \`absolutePath\` function. ` +
-      `You provide a(n) ${typeof basePath} value: ${basePath}.`
+      `You provide a(n) ${typeof basePath} value: ${JSON.stringify(basePath)}.`
     )
   }
 
   if (!path.isAbsolute(basePath)) {
     throw new TypeError(
       `The first param must be an absolute path when use \`absolutePath\` function. ` +
-      `You provide: ${basePath}.`
+      `You provide: ${JSON.stringify(basePath)}.`
     )
   }
 

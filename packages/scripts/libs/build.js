@@ -6,16 +6,13 @@ module.exports = () => {
     throw err
   })
 
-  const path = require('path')
   const { execFileSync } = require('child_process')
+  const file = require.resolve('webpack/bin/webpack.js')
 
   const args = process.argv.slice(3)
-  args.unshift('--config', path.resolve(__dirname, '../config/webpack.js'))
+  args.unshift('--config', require.resolve('@uedlinker/load-config/config/webpack.js'))
 
-  const webpackPackage = require.resolve('webpack')
-  const binFile = path.resolve(webpackPackage, '../../bin/webpack.js')
-
-  execFileSync(binFile, args, {
+  execFileSync(file, args, {
     cwd: process.cwd(),
     stdio: 'inherit',
   })

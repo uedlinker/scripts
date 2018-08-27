@@ -1,8 +1,8 @@
 module.exports = (config, options, envs) => {
-  const { appPath } = options
+  const { rootPath } = options
 
-  // All of entry points and loaders are resolved from appPath.
-  config.context(appPath)
+  // All of entry points and loaders are resolved from `rootPath`.
+  config.context(rootPath)
 
   return config
 }

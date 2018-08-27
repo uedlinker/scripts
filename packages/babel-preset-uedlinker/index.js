@@ -1,4 +1,6 @@
-module.exports = (context, options = {}) => {
+const uedlinkerConfig = require('@uedlinker/load-config/config/uedlinker')
+
+module.exports = (context, options = uedlinkerConfig) => {
   const presets = []
   const plugins = []
 
@@ -47,9 +49,9 @@ module.exports = (context, options = {}) => {
         // commonjs that Node.js is using. When using other module system like Webpack,
         // there is no need to transform modules to commonjs, modules will be handled by theirself.
         modules: false,
-        // Transform `import '@babel/polyfill'` to individual polyfills based on browserslist.
-        // You need to install and import `@babel/polyfill` by yourself.
-        useBuiltIns: 'entry',
+        // Adds specific imports for polyfills when they are used in each file based on browserslist.
+        // You need to add `core-js` and `regenerator-runtime` as dependencies.
+        useBuiltIns: 'usage',
         ...options['@babel/preset-env'],
       }
     ),
