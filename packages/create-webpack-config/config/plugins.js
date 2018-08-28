@@ -25,25 +25,26 @@ module.exports = (config, options, envs) => {
     }
   }
 
-  // Define custom envs.
   config
     .plugin('define')
     .use(webpack.DefinePlugin, [customEnvs])
 
-  // Webpack Bar
-  config
-    .plugin('bar')
-    .use(WebpackBar)
+  if (isDevelopment) {
+    config
+      .plugin('bar')
+      .use(WebpackBar)
+      .end()
 
-  // Plugins in poroduction env.
+      .plugin('hmr')
+      .use(webpack.HotModuleReplacementPlugin)
+  }
+
   if (isProduction) {
     config
-
       .plugin('clean')
       .use(CleanWebpackPlugin, [[outputPath], {
         root: rootPath,
       }])
-      .end()
 
     if (fs.existsSync(staticPath) && fs.statSync(staticPath).isDirectory()) {
       config
@@ -59,10 +60,10 @@ module.exports = (config, options, envs) => {
       .use(MiniCssExtractPlugin, [{
         filename: isDevelopment
           ? 'assets/css/[name].css'
-          : 'assets/css/[name].[chunkhash].css',
+          : 'assets/css/[name].[contenthash:8].css',
         chunkFilename: isDevelopment
           ? 'assets/css/[name].css'
-          : 'assets/css/[name].[chunkhash].css',
+          : 'assets/css/[name].[contenthash:8].css',
       }])
       .end()
 
@@ -87,11 +88,16 @@ module.exports = (config, options, envs) => {
     .use(HtmlWebpackPlugin, [{
       template: templatePath,
       minify: isProduction && {
-        collapseWhitespace: true,
-        keepClosingSlash: true,
-        minifyCSS: true,
-        minifyJS: true,
         removeComments: true,
+        collapseWhitespace: true,
+        removeRedundantAttributes: true,
+        useShortDoctype: true,
+        removeEmptyAttributes: true,
+        removeStyleLinkTypeAttributes: true,
+        keepClosingSlash: true,
+        minifyJS: true,
+        minifyCSS: true,
+        minifyURLs: true,
       },
     }])
 

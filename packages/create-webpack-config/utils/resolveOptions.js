@@ -23,17 +23,26 @@ module.exports = (options = {}) => {
     templatePath = path.resolve(__dirname, '../template.html'),
     polyfillsPath,
 
-    enableSass = true,
     enableTypescript = false,
+    enableSass = true,
+    enableLess = false,
+    enableStylus = false,
+    enableImages = true,
+    enableFonts = true,
+    enableMedia = true,
+
+    enableDevelopmentHMR = true,
 
     productionPublicPath = '/',
     enableProductionAnalysis = false,
     enableProductionSourceMap = false,
 
+    enableFetchPolyfill = true,
+
     babelConfig = {
       presets: [[
         require.resolve('@uedlinker/babel-preset-uedlinker'),
-        { stage: 3, enableFlow: false, enableTypescript: false },
+        { stage: 3, enableFlow: false, enableTypescript: false, enableBabelPolyfill: true },
       ]],
     },
   } = options
@@ -54,14 +63,18 @@ module.exports = (options = {}) => {
     staticPath,
     templatePath,
     polyfillsPath,
-
-    enableSass,
     enableTypescript,
-
+    enableSass,
+    enableLess,
+    enableStylus,
+    enableImages,
+    enableFonts,
+    enableMedia,
+    enableDevelopmentHMR,
     productionPublicPath,
     enableProductionAnalysis,
     enableProductionSourceMap,
-
+    enableFetchPolyfill,
     babelConfig,
   }
 }

@@ -8,12 +8,12 @@ module.exports = (config, options, envs) => {
     .filename(
       isDevelopment
         ? 'assets/js/[name].bundle.js'
-        : 'assets/js/[name].[chunkhash].bundle.js'
+        : 'assets/js/[name].[contenthash:8].bundle.js'
     )
     .chunkFilename(
       isDevelopment
         ? 'assets/js/[name].chunk.js'
-        : 'assets/js/[name].[chunkhash].chunk.js'
+        : 'assets/js/[name].[contenthash:8].chunk.js'
     )
     .pathinfo(isDevelopment)
     .publicPath(
@@ -21,6 +21,7 @@ module.exports = (config, options, envs) => {
         ? '/'
         : (productionPublicPath != null ? productionPublicPath : '/')
     )
+    .hashDigestLength(8)
 
   return config
 }

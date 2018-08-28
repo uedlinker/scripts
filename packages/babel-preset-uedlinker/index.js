@@ -24,6 +24,8 @@ module.exports = (context, options = uedlinkerConfig) => {
     enableFlow = false,
     // Whether support TypeScript syntax, default false.
     enableTypescript = false,
+    // Whether import polyfills in preset-env.
+    enableBabelPolyfill = true,
   } = options
 
   // Is `stage` value valid.
@@ -51,7 +53,7 @@ module.exports = (context, options = uedlinkerConfig) => {
         modules: false,
         // Adds specific imports for polyfills when they are used in each file based on browserslist.
         // You need to add `core-js` and `regenerator-runtime` as dependencies.
-        useBuiltIns: 'usage',
+        useBuiltIns: !!enableBabelPolyfill && 'usage',
         ...options['@babel/preset-env'],
       }
     ),

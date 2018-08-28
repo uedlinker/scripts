@@ -11,6 +11,7 @@ module.exports = (options = uedlinkerConfig) => {
     outputPath = 'dist',
     staticPath = 'static',
     enableTypescript = false,
+    enableFetchPolyfill = true,
   } = options
 
   // `rootPath` must be an absolute path.
@@ -91,9 +92,9 @@ module.exports = (options = uedlinkerConfig) => {
 
   // Jest `setupFiles` config
   const setupFiles = [
-    require.resolve('whatwg-fetch'),
+    !!enableFetchPolyfill && require.resolve('whatwg-fetch'),
     path.resolve(__dirname, './setup.js'),
-  ]
+  ].filter(Boolean)
 
   // Jest `testMatch` config
   const testMatch = [...defaults.testMatch]

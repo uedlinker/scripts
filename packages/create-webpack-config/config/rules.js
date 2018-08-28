@@ -3,7 +3,10 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = (config, options, envs) => {
   const { isDevelopment } = envs
-  const { appPath, srcPath, enableTypescript, enableSass, babelConfig } = options
+  const {
+    appPath, srcPath, enableTypescript, enableSass, babelConfig,
+    enableLess, enableStylus, enableImages, enableFonts, enableMedia,
+  } = options
 
   // Disable `require.ensure`, use standard dynamic import.
   config
@@ -11,7 +14,6 @@ module.exports = (config, options, envs) => {
     .rule('parser')
     .parser({ requireEnsure: false })
 
-  // Base rule.
   config
     .module
     .rule('base')
@@ -42,34 +44,28 @@ module.exports = (config, options, envs) => {
       ...babelConfig,
     })
 
-  // CSS rule.
   configStyleRule(config, 'css', isDevelopment)
 
-  // If support Sass files
-  if (enableSass) {
-    configStyleRule(config, 'sass', isDevelopment)
-  }
-
-  // Images rule
-  configFilesRule(config, 'images', isDevelopment)
-
-  // Fonts rule
-  configFilesRule(config, 'fonts', isDevelopment)
-
-  // Media rule.
-  configFilesRule(config, 'media', isDevelopment)
+  if (enableSass) configStyleRule(config, 'sass', isDevelopment)
+  if (enableLess) configStyleRule(config, 'less', isDevelopment)
+  if (enableStylus) configStyleRule(config, 'stylus', isDevelopment)
+  if (enableImages) configFilesRule(config, 'images', isDevelopment)
+  if (enableFonts) configFilesRule(config, 'fonts', isDevelopment)
+  if (enableMedia) configFilesRule(config, 'media', isDevelopment)
 
   return config
 }
 
-// Config style rule.
 function configStyleRule (config, type, isDevelopment) {
 
   let testRe
-  let importLoaders
+  let importLoaders = 2
+
   switch (type) {
     case 'css': testRe = /\.css$/; importLoaders = 1; break
-    case 'sass': testRe = /\.scss$/; importLoaders = 2; break
+    case 'sass': testRe = /\.s(a|c)ss$/; break
+    case 'less': testRe = /\.less$/; break
+    case 'stylus': testRe = /\.styl(us)?$/; break
   }
 
   const base = config
@@ -111,10 +107,21 @@ function configStyleRule (config, type, isDevelopment) {
       .loader(require.resolve('sass-loader'))
   }
 
+  if (type === 'less') {
+    base
+      .use('less-loader')
+      .loader(require.resolve('less-loader'))
+  }
+
+  if (type === 'stylus') {
+    base
+      .use('stylus-loader')
+      .loader(require.resolve('stylus-loader'))
+  }
+
   return config
 }
 
-// Config files rule
 function configFilesRule (config, type, isDevelopment) {
 
   let testRe

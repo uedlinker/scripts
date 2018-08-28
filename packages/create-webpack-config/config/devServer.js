@@ -2,7 +2,7 @@ const fs = require('fs')
 
 module.exports = (config, options, envs) => {
   const { isDevelopment } = envs
-  const { staticPath } = options
+  const { staticPath, enableDevelopmentHMR } = options
 
   if (isDevelopment) {
     config
@@ -22,6 +22,12 @@ module.exports = (config, options, envs) => {
       // Same as output.publicPath in development env.
       .publicPath('/')
       .useLocalIp(true)
+
+    if (enableDevelopmentHMR) {
+      config
+        .devServer
+        .hot(true)
+    }
 
     if (fs.existsSync(staticPath) && fs.statSync(staticPath).isDirectory()) {
       config

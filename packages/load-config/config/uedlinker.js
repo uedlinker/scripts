@@ -9,8 +9,13 @@ const defaults = {
   stage: 3,
 
   enableFlow: false,
-  enableSass: true,
   enableTypescript: false,
+  enableSass: true,
+  enableLess: false,
+  enableStylus: false,
+  enableImages: true,
+  enableFonts: true,
+  enableMedia: true,
 
   // `rootPath` must be an absolute path.
   rootPath: fs.realpathSync(process.cwd()),
@@ -40,9 +45,22 @@ const defaults = {
   // so there is unnecessary to require the default polyfills agian.
   polyfillsPath: void 0,
 
+  // Babel polyfills would not require all, it is on demand.
+  enableBabelPolyfill: true,
+  // Whether require `whatwg-fetch` as polyfill by default.
+  enableFetchPolyfill: true,
+
+  // Configs in development environment.
+  enableDevelopmentHMR: true,
+
+  // Configs in production environment.
   productionPublicPath: '/',
   enableProductionAnalysis: false,
   enableProductionSourceMap: false,
+
+  // Configs in test environment.
+  enableTestRaf: true,
+  enableTestEnzyme: true,
 }
 
 const customConfig = loadCustomConfig(filename, defaults)

@@ -6,8 +6,8 @@ module.exports = (config, options, envs) => {
     .modules
     .add('node_modules')
     .add(srcPath)
-    // Finally, resolve modules based on current file path,
-    // in this way, users do not need to install dependencies by themselves.
+    // Resolve modules based on current file path if not found module in previous paths.
+    // In this way, users do not need to install dependencies by themselves.
     .merge(module.paths)
 
   config
