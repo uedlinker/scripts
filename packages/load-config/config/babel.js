@@ -12,4 +12,4 @@ const defaults = {
 
 const customConfig = loadCustomConfig(filename, defaults)
 
-module.exports = { ...defaults, ...customConfig }
+module.exports = Object.freeze({ ...defaults, ...customConfig })
