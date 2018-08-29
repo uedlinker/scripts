@@ -36,6 +36,7 @@ module.exports = (options = {}) => {
     productionPublicPath = '/',
     enableProductionAnalysis = false,
     enableProductionSourceMap = false,
+    enableProductionPWA = false,
 
     enableFetchPolyfill = true,
   } = options
@@ -80,6 +81,7 @@ module.exports = (options = {}) => {
     productionPublicPath,
     enableProductionAnalysis,
     enableProductionSourceMap,
+    enableProductionPWA,
     enableFetchPolyfill,
     babelConfig,
   }

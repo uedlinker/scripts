@@ -1,6 +1,7 @@
 const fs = require('fs')
 const webpack = require('webpack')
 const WebpackBar = require('webpackbar')
+const OfflinePlugin = require('offline-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
@@ -11,7 +12,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 module.exports = (config, options, envs) => {
   const { isProduction, isDevelopment } = envs
   const {
-    rootPath, outputPath, staticPath, templatePath,
+    rootPath, outputPath, staticPath, templatePath, enableProductionPWA,
     enableProductionSourceMap, enableProductionAnalysis, enableDevelopmentHMR,
   } = options
 
@@ -102,6 +103,12 @@ module.exports = (config, options, envs) => {
         minifyURLs: true,
       },
     }])
+
+  if (isProduction && enableProductionPWA) {
+    config
+      .plugin('offline')
+      .use(OfflinePlugin)
+  }
 
   return config
 }

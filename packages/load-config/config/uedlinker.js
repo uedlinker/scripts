@@ -57,6 +57,7 @@ const defaults = {
   productionPublicPath: '/',
   enableProductionAnalysis: false,
   enableProductionSourceMap: false,
+  enableProductionPWA: false,
 
   // Configs in test environment.
   enableTestRaf: true,
