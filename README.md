@@ -4,7 +4,7 @@ Scripts for React single page application.
 
 ## TODO
 
-- [ ] React hot loader
+- [x] React hot loader
 - [ ] Manifest
 - [ ] Offline plugin
 - [ ] Optimization

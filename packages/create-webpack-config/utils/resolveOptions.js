@@ -38,14 +38,20 @@ module.exports = (options = {}) => {
     enableProductionSourceMap = false,
 
     enableFetchPolyfill = true,
-
-    babelConfig = {
-      presets: [[
-        require.resolve('@uedlinker/babel-preset-uedlinker'),
-        { stage: 3, enableFlow: false, enableTypescript: false, enableBabelPolyfill: true },
-      ]],
-    },
   } = options
+
+  const defaultBabelConfig = {
+    presets: [[
+      require.resolve('@uedlinker/babel-preset-uedlinker'),
+      { stage: 3, enableFlow: false, enableTypescript: false, enableBabelPolyfill: true },
+    ]],
+  }
+
+  if (enableDevelopmentHMR) {
+    defaultBabelConfig.plugins = [require.resolve('react-hot-loader/babel')]
+  }
+
+  const { babelConfig = defaultBabelConfig } = options
 
   // Resolve all relative paths to absolute paths based on the `rootPath`
   srcPath = absolutePath(rootPath, srcPath)

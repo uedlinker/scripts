@@ -12,7 +12,7 @@ module.exports = (config, options, envs) => {
   const { isProduction, isDevelopment } = envs
   const {
     rootPath, outputPath, staticPath, templatePath,
-    enableProductionSourceMap, enableProductionAnalysis,
+    enableProductionSourceMap, enableProductionAnalysis, enableDevelopmentHMR,
   } = options
 
   // Custom environment variables.
@@ -33,10 +33,12 @@ module.exports = (config, options, envs) => {
     config
       .plugin('bar')
       .use(WebpackBar)
-      .end()
 
-      .plugin('hmr')
-      .use(webpack.HotModuleReplacementPlugin)
+    if (enableDevelopmentHMR) {
+      config
+        .plugin('hmr')
+        .use(webpack.HotModuleReplacementPlugin)
+    }
   }
 
   if (isProduction) {
