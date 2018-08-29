@@ -1,7 +1,7 @@
 {
   "name": "@uedlinker/load-config",
   "version": "0.3.0",
-  "description": "Load config for @uedlinker/scripts",
+  "description": "Load uedlinker config for @uedlinker/scripts",
   "keywords": [
     "load",
     "config",
@@ -13,7 +13,7 @@
   "license": "MIT",
   "main": "index.js",
   "publishConfig": {
-    "registry": "https://registry.npm.taobao.org/"
+    "access": "public"
   },
   "repository": {
     "type": "git",
@@ -23,11 +23,7 @@
     "url": "https://github.com/uedlinker/scripts/issues"
   },
   "dependencies": {
-    "@uedlinker/babel-preset-uedlinker": "^0.3.0",
-    "@uedlinker/create-jest-config": "^0.3.0",
-    "@uedlinker/create-webpack-config": "^0.3.0",
     "lodash.isfunction": "^3.0.9",
-    "lodash.isplainobject": "^4.0.6",
-    "webpack-merge": "^4.1.4"
+    "lodash.isplainobject": "^4.0.6"
   }
 }

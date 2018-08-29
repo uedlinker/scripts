@@ -1,5 +1,5 @@
 const fs = require('fs')
-const loadCustomConfig = require('../utils/loadCustomConfig')
+const loadCustomConfig = require('../libs/loadCustomConfig')
 
 const filename = 'uedlinker.config.js'
 

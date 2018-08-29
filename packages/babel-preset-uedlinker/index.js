@@ -1,4 +1,4 @@
-const uedlinkerConfig = require('@uedlinker/load-config/config/uedlinker')
+const { uedlinkerConfig } = require('@uedlinker/load-config')
 
 module.exports = (context, options = uedlinkerConfig) => {
   const presets = []

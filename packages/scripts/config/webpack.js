@@ -6,7 +6,7 @@ const isPlainObject = require('lodash.isplainobject')
 const createWebpackConfig = require('@uedlinker/create-webpack-config')
 
 const babelConfig = require('./babel')
-const uedlinkerConfig = require('./uedlinker')
+const { uedlinkerConfig } = require('@uedlinker/load-config')
 
 const options = Object.freeze({ ...uedlinkerConfig, babelConfig })
 

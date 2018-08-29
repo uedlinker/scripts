@@ -1,6 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 const absolutePath = require('./absolutePath')
+const { uedlinkerConfig } = require('@uedlinker/load-config')
 
 module.exports = (options = {}) => {
 
@@ -44,11 +45,11 @@ module.exports = (options = {}) => {
   const defaultBabelConfig = {
     presets: [[
       require.resolve('@uedlinker/babel-preset-uedlinker'),
-      { stage: 3, enableFlow: false, enableTypescript: false, enableBabelPolyfill: true },
+      uedlinkerConfig,
     ]],
   }
 
-  if (enableDevelopmentHMR) {
+  if (process.env.NODE_ENV === 'development' && enableDevelopmentHMR) {
     defaultBabelConfig.plugins = [require.resolve('react-hot-loader/babel')]
   }
 

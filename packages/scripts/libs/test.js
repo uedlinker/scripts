@@ -9,7 +9,7 @@ module.exports = () => {
   const jest = require('jest')
 
   const args = process.argv.slice(3)
-  args.unshift('--config', require.resolve('@uedlinker/load-config/config/jest.js'))
+  args.unshift('--config', require.resolve('../config/jest.js'))
 
   jest.run(args)
 }

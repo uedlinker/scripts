@@ -10,7 +10,7 @@ module.exports = () => {
   const file = require.resolve('webpack/bin/webpack.js')
 
   const args = process.argv.slice(3)
-  args.unshift('--config', require.resolve('@uedlinker/load-config/config/webpack.js'))
+  args.unshift('--config', require.resolve('../config/webpack.js'))
 
   execFileSync(file, args, {
     cwd: process.cwd(),

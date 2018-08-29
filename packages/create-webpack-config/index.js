@@ -1,5 +1,5 @@
 const Config = require('webpack-chain')
-const uedlinkerConfig = require('@uedlinker/load-config/config/uedlinker')
+const { uedlinkerConfig } = require('@uedlinker/load-config')
 
 const resolveOptions = require('./utils/resolveOptions')
 const checkEnvironment = require('./utils/checkEnvironment')

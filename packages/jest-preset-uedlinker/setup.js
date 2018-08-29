@@ -1,6 +1,5 @@
-const {
-  enableTestRaf, enableTestEnzyme,
-} = require('@uedlinker/load-config/config/uedlinker.js')
+const { uedlinkerConfig } = require('@uedlinker/load-config')
+const { enableTestRaf, enableTestEnzyme } = uedlinkerConfig
 
 if (enableTestRaf) {
   const raf = require('raf')

@@ -1,8 +1,9 @@
 {
-  "name": "@uedlinker/create-jest-config",
+  "name": "@uedlinker/jest-preset-uedlinker",
   "version": "0.3.0",
-  "description": "Create jest config for @uedlinker/scripts",
+  "description": "Jest preset for @uedlinker/scripts",
   "keywords": [
+    "preset",
     "config",
     "jest",
     "uedlinker",
@@ -23,9 +24,10 @@
     "url": "https://github.com/uedlinker/scripts/issues"
   },
   "dependencies": {
-    "@babel/core": "^7.0.0-rc.3",
-    "@babel/polyfill": "^7.0.0-rc.3",
-    "@babel/runtime": "^7.0.0-rc.3",
+    "@babel/core": "^7.0.0",
+    "@babel/polyfill": "^7.0.0",
+    "@babel/runtime": "^7.0.0",
+    "@uedlinker/babel-preset-uedlinker": "^0.3.0",
     "@uedlinker/load-config": "^0.3.0",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^23.4.2",
