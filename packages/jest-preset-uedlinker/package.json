@@ -10,7 +10,7 @@
     "scripts"
   ],
   "author": "Uedlinker",
-  "homepage": "https://github.com/uedlinker/scripts#readme",
+  "homepage": "https://github.com/uedlinker/scripts/tree/master/packages/jest-preset-uedlinker#readme",
   "license": "MIT",
   "main": "index.js",
   "publishConfig": {

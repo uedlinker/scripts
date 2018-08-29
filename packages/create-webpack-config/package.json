@@ -11,7 +11,7 @@
     "uedlinker"
   ],
   "author": "Uedlinker",
-  "homepage": "https://github.com/uedlinker/scripts#readme",
+  "homepage": "https://github.com/uedlinker/scripts/tree/master/packages/create-webpack-config#readme",
   "license": "MIT",
   "main": "index.js",
   "publishConfig": {
