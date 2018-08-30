@@ -1,6 +1,6 @@
 {
   "name": "@uedlinker/babel-preset-uedlinker",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Babel preset for @uedlinker/scripts",
   "keywords": [
     "preset",
@@ -46,7 +46,7 @@
     "@babel/preset-flow": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
     "@babel/preset-typescript": "^7.0.0",
-    "@uedlinker/load-config": "^0.3.0",
+    "@uedlinker/load-config": "^0.3.1",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.14"
   }
 }

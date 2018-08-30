@@ -1,6 +1,6 @@
 {
   "name": "@uedlinker/jest-preset-uedlinker",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Jest preset for @uedlinker/scripts",
   "keywords": [
     "preset",
@@ -27,8 +27,8 @@
     "@babel/core": "^7.0.0",
     "@babel/polyfill": "^7.0.0",
     "@babel/runtime": "^7.0.0",
-    "@uedlinker/babel-preset-uedlinker": "^0.3.0",
-    "@uedlinker/load-config": "^0.3.0",
+    "@uedlinker/babel-preset-uedlinker": "^0.3.1",
+    "@uedlinker/load-config": "^0.3.1",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^23.4.2",
     "core-js": "^2.5.7",
