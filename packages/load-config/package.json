@@ -1,6 +1,6 @@
 {
   "name": "@uedlinker/load-config",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Load uedlinker config for @uedlinker/scripts",
   "keywords": [
     "load",

@@ -1,6 +1,6 @@
 {
   "name": "@uedlinker/create-webpack-config",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Create webpack config for @uedlinker/scripts",
   "keywords": [
     "config",
@@ -28,8 +28,8 @@
     "@babel/core": "^7.0.0",
     "@babel/polyfill": "^7.0.0",
     "@babel/runtime": "^7.0.0",
-    "@uedlinker/babel-preset-uedlinker": "^0.3.1",
-    "@uedlinker/load-config": "^0.3.1",
+    "@uedlinker/babel-preset-uedlinker": "^0.3.2",
+    "@uedlinker/load-config": "^0.3.2",
     "autoprefixer": "^9.1.3",
     "babel-loader": "^8.0.0",
     "clean-webpack-plugin": "^0.1.19",
