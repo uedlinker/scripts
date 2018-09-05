@@ -26,7 +26,7 @@ module.exports = (filename, ...params) => {
       return customConfig
 
     } else if (isFunction(customConfig)) {
-      const computedConfig = customConfig.apply(null, ...params)
+      const computedConfig = customConfig(...params)
 
       if (isPlainObject(computedConfig)) {
         return computedConfig
