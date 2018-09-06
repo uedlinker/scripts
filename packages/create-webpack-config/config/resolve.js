@@ -19,7 +19,7 @@ module.exports = (config, options, envs) => {
     config
       .resolve
       .extensions
-      .merge(['.ts', 'tsx'])
+      .merge(['.ts', '.tsx'])
   }
 
   return config
