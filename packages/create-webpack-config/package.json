@@ -1,6 +1,6 @@
 {
   "name": "@uedlinker/create-webpack-config",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Create webpack config for @uedlinker/scripts",
   "keywords": [
     "config",

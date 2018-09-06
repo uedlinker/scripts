@@ -1,6 +1,6 @@
 {
   "name": "@uedlinker/scripts",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Scripts for React single page application",
   "keywords": [
     "scripts",
@@ -30,7 +30,7 @@
   "dependencies": {
     "@babel/core": "^7.0.0",
     "@uedlinker/babel-preset-uedlinker": "^0.3.2",
-    "@uedlinker/create-webpack-config": "^0.3.2",
+    "@uedlinker/create-webpack-config": "^0.3.3",
     "@uedlinker/jest-preset-uedlinker": "^0.3.2",
     "@uedlinker/load-config": "^0.3.2",
     "babel-core": "^7.0.0-bridge.0",
